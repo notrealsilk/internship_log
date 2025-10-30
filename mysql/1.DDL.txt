@@ -1,0 +1,56 @@
+CREATE DATABASE BOOKSTORE
+
+USE BOOKSTORE
+
+CREATE TABLE Book (
+  bookid      INT PRIMARY KEY,
+  bookname    VARCHAR(40),
+  publisher   VARCHAR(40),
+  price       INT 
+);
+
+CREATE TABLE  Customer (
+  custid      INT PRIMARY KEY NONCLUSTERED,  
+  name        VARCHAR(40),
+  address     VARCHAR(40),
+  phone       VARCHAR(30)
+);
+
+CREATE TABLE Orders (
+  orderid INT  PRIMARY KEY,
+  custid  INT  REFERENCES Customer(custid),
+  bookid  INT  REFERENCES Book(bookid),
+  saleprice INT,
+  orderdate DATE
+);
+
+
+-- Book, Customer, Orders 데이터 생성
+INSERT INTO Book VALUES(1, '응용 수치해석', '맥그로우힐', 7000);
+INSERT INTO Book VALUES(2, '창의적 공학설계', '한빛미디어', 13000);
+INSERT INTO Book VALUES(3, '기초 미분적문학', '한빛미디어', 22000);
+INSERT INTO Book VALUES(4, '소프트웨어공학', '생능출판사', 35000);
+INSERT INTO Book VALUES(5, '데이터베이스시스템', '맥그로우힐', 8000);
+INSERT INTO Book VALUES(6, '이산수학및응용', '피어슨', 6000);
+INSERT INTO Book VALUES(7, '공학도를위한 매트랩', '피어슨', 20000);
+INSERT INTO Book VALUES(8, '최신공학수학', '한빛미디어', 13000);
+INSERT INTO Book VALUES(9, '라즈베리파이쿡북', '생능출판사', 7500);
+INSERT INTO Book VALUES(10, '포르잔 C++', '피어슨', 13000);
+
+INSERT INTO Customer VALUES (1, '황혜정', '대한민국 서울', '010-4862-3315');
+INSERT INTO Customer VALUES (2, '박주미', '대한민국 인천', '010-6910-5873');  
+INSERT INTO Customer VALUES (3, '이현승', '대한민국 강원도', '010-7028-0562');
+INSERT INTO Customer VALUES (4, '장윤석', '대한민국 경기도', '010-8566-3601');
+INSERT INTO Customer VALUES (5, '이지영', '대한민국 대전',  NULL);
+
+-- 주문(Orders) 테이블의 책값은 할인 판매를 가정함
+INSERT INTO Orders VALUES (1, 1,  1, 6000, '2020-07-01'); 
+INSERT INTO Orders VALUES (2, 1,3, 21000, '2020-07-03');
+INSERT INTO Orders VALUES (3, 2, 5, 8000, '2020-07-03'); 
+INSERT INTO Orders VALUES (4, 3, 6, 6000, '2020-07-04'); 
+INSERT INTO Orders VALUES (5, 4, 7, 20000, '2020-07-05');
+INSERT INTO Orders VALUES (6, 1, 2, 12000, '2020-07-07');
+INSERT INTO Orders VALUES (7, 4, 8, 13000, '2020-07-07');
+INSERT INTO Orders VALUES (8, 3, 10, 12000, '2020-07-08'); 
+INSERT INTO Orders VALUES (9, 2, 10, 7000, '2020-07-09'); 
+INSERT INTO Orders VALUES (10, 3, 8, 13000, '2020-07-10');
