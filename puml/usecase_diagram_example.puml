@@ -1,0 +1,29 @@
+@startuml "온라인 뱅킹 시스템"
+left to right direction
+actor "고객" as costomer
+actor "관리자" as admin
+
+rectangle "온라인 뱅킹 시스템" {
+    usecase "계좌 조회" as check_account
+    usecase "이체" as transfer
+    usecase "비밀번호 변경" as change_pw
+    usecase "사용자 관리" as user_management
+    usecase "로그인" as login
+}
+
+
+costomer --> check_account
+costomer --> transfer
+costomer --> change_pw
+costomer --> login
+
+admin --> user_management
+admin --> login
+
+check_account .> login : <<include>>
+transfer .> login : <<include>>
+change_pw .> login : <<include>>
+
+user_management .> login : <<include>>
+
+@enduml
